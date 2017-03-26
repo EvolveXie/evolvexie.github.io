@@ -383,7 +383,6 @@
         <blockquote>
 <p>A flexible view for providing a limited window into a large data set.</p>
 </blockquote>
-<p><img src="http://onekeuz2a.bkt.clouddn.com/Blog-RecyclerView.png" alt="image"></p>
 <p><a href="https://developer.android.google.cn/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="external">RecyclerView</a> 在 support.v7 中提供支持，可以说是 <a href="https://developer.android.google.cn/reference/android/widget/ListView.html" target="_blank" rel="external">ListView</a> 的升级加强版，建议原有的 ListView 设计的列表都可以转为使用 RecyclerView 实现。</p>
 <h4 id="相比-ListView-优点"><a href="#相比-ListView-优点" class="headerlink" title="相比 ListView 优点"></a>相比 ListView 优点</h4><ul>
 <li>封装了 ViewHolder，方便开发者快速构建性能良好的列表显示。</li>
@@ -392,8 +391,8 @@
 </ul>
 <h4 id="RecyclerView-基础使用"><a href="#RecyclerView-基础使用" class="headerlink" title="RecyclerView 基础使用"></a>RecyclerView 基础使用</h4><p>使用上和 ListView 基本类似，这里我以纵向列表为例。</p>
 <ol>
-<li>首先在主布局加入 RecycleView <blockquote>
-<p>注意，需要在 build.gradle 中加入依赖(版本自定) <code>compile &#39;com.android.support:recyclerview-v7:25.1.0&#39;</code></p>
+<li>首先在主布局加入 RecycleView<blockquote>
+<p>注意，需要在 build.gradle 中加入依赖(版本自定) compile ‘com.android.support:recyclerview-v7:25.1.0’</p>
 </blockquote>
 </li>
 </ol>
@@ -415,8 +414,8 @@
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>以上，可见 RecyclerView 的实现非常简单，和 ListView 的实现方法大同小异。主要是以下几个步骤</p>
 <ol>
 <li>添加依赖</li>
-<li>往布局添加 RecyclerView </li>
-<li>实现 RecyclerViewAdapter </li>
+<li>往布局添加 RecyclerView</li>
+<li>实现 RecyclerViewAdapter</li>
 <li>Activity 中实例化并且设置布局</li>
 </ol>
 <h4 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h4><p><img src="http://onekeuz2a.bkt.clouddn.com/Blog-RecyclerView.png" alt="RecyclerViewImage"></p>
