@@ -393,125 +393,24 @@
 <h4 id="RecyclerView-基础使用"><a href="#RecyclerView-基础使用" class="headerlink" title="RecyclerView 基础使用"></a>RecyclerView 基础使用</h4><p>使用上和 ListView 基本类似，这里我以纵向列表为例。</p>
 <ol>
 <li>首先在主布局加入 RecycleView <blockquote>
-<p>注意，需要在 build.gradle 中加入依赖(版本自定) <figure class="highlight plain"><figcaption><span>'com.android.support:recyclerview-v7:25.1.0' ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>注意，需要在 build.gradle 中加入依赖(版本自定) <code>compile &#39;com.android.support:recyclerview-v7:25.1.0&#39;</code></p>
 </blockquote>
 </li>
 </ol>
-<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<framelayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
-
-<pre><code>&lt;android.support.v7.widget.RecyclerView
-    android:id=&quot;@+id/rv_numbers&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;/&gt;
-</code></pre><p></p></framelayout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2. Activity 代码实例化 RecycleView ，并且添加适配器，事件监听，设置布局</div></pre></td></tr></table></figure><p></p>
-<p>public class MyMainActivity extends AppCompatActivity {</p>
-<pre><code>private static final int NUM_LIST_ITEMS = 100;
-private RecyclerAdapter mAdapter;
-private RecyclerView mNumbersList;
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    mNumbersList = (RecyclerView) findViewById(R.id.rv_numbers);
-
-    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-    // 设置为纵向线性列表
-    mNumbersList.setLayoutManager(layoutManager);
-    mNumbersList.setHasFixedSize(true);
-
-    mAdapter = new RecyclerAdapter(NUM_LIST_ITEMS);
-    // 设置适配器
-    mNumbersList.setAdapter(mAdapter);
-}
-
-static class ColorGenerater {
-    /**
-     * 随机生成随机RGB颜色字符串值
-     */
-    public static String getRandomColorString() {
-        Random random = new Random();
-        String r = Integer.toHexString(random.nextInt(256));
-        String g = Integer.toHexString(random.nextInt(256));
-        String b = Integer.toHexString(random.nextInt(256));
-        if (r.length() == 1) {
-            r = &quot;0&quot; + r;
-        }
-        if (g.length() == 1) {
-            g = &quot;0&quot; + g;
-        }
-        if (b.length() == 1) {
-            b = &quot;0&quot; + b;
-        }
-        return &quot;#&quot; + r + g + b;
-    }
-}
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">3. 创建列表项布局</div><div class="line"></div><div class="line">这里很简单，直接上代码</div></pre></td></tr></table></figure></p>
-<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<framelayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:id="@+id/fl_item_container">
-
-<pre><code>&lt;TextView
-    android:layout_width=&quot;wrap_content&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:textSize=&quot;14sp&quot;
-    android:fontFamily=&quot;monospace&quot;
-    android:layout_gravity=&quot;center_vertical&quot;
-    android:gravity=&quot;start&quot;
-    android:id=&quot;@+id/tv_item_number&quot;/&gt;
-</code></pre><p></p></framelayout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">4. RecyclerView 适配器实现</div><div class="line"></div><div class="line">和 ListView 相似，RecyclerView Adapter 需要继承自 RecyclerView.Adapter ，实现其中必要的三个方法：`onCreateViewHolder`,`onBindViewHolder`,`getItemCount` ，除此之外我们还需要写内部类实现我们自己的 ViewHolder（继承 RecyclerView.ViewHolder ） 实现子 View 的缓存和重用。上代码：</div></pre></td></tr></table></figure><p></p>
-<p>public class RecyclerAdapter extends RecyclerView.Adapter<recycleradapter.numberviewholder> {</recycleradapter.numberviewholder></p>
-<pre><code>private static final String TAG = RecyclerAdapter.class.getSimpleName();
-
-private int mNumberItems;
-
-public RecyclerAdapter(int numberOfItems) {
-    mNumberItems = numberOfItems;
-}
-
-@Override
-public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-    Context context = viewGroup.getContext();
-    int layoutIdForListItem = R.layout.number_list_item;
-    LayoutInflater inflater = LayoutInflater.from(context);
-    boolean shouldAttachToParentImmediately = false;
-
-    View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-    NumberViewHolder viewHolder = new NumberViewHolder(view);
-
-    return viewHolder;
-}
-
-@Override
-public void onBindViewHolder(NumberViewHolder holder, int position) {
-    Log.d(TAG, &quot;#&quot; + position);
-    holder.bind(position);
-}
-
-@Override
-public int getItemCount() {
-    return mNumberItems;
-}
-
-class NumberViewHolder extends RecyclerView.ViewHolder {
-    public NumberViewHolder(View itemView) {
-        super(itemView);
-        listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);
-        mItemContainer = (FrameLayout) itemView.findViewById(R.id.fl_item_container);
-    }
-
-    TextView listItemNumberView;
-    FrameLayout mItemContainer;
-
-    void bind(int listIndex) {
-        String randomColorString = MyMainActivity.ColorGenerater.getRandomColorString();
-        listItemNumberView.setText(randomColorString + &quot; &quot; + String.valueOf(listIndex));
-        mItemContainer.setBackgroundColor(Color.parseColor(randomColorString));
-    }
-}
-</code></pre><p>}<br><code>``
-在重写方法</code>onCreateViewHolder(ViewGroup viewGroup, int viewType) <code>中，viewType可以判断视图类型，其值来源于我们重写的</code>int getItemViewType(int position)` 方法，通过这种方式，实现多个 ViewHolder 类，我们可以实现 list 列表项多样的布局方式，比如改变第一项的大小样式等。有兴趣的读者可以尝试，这里暂时不做示例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;FrameLayout</div><div class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;android.support.v7.widget.RecyclerView</div><div class="line">        android:id=&quot;@+id/rv_numbers&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;/&gt;</div><div class="line">&lt;/FrameLayout&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>Activity 代码实例化 RecycleView ，并且添加适配器，事件监听，设置布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">public class MyMainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    private static final int NUM_LIST_ITEMS = 100;</div><div class="line">    private RecyclerAdapter mAdapter;</div><div class="line">    private RecyclerView mNumbersList;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        mNumbersList = (RecyclerView) findViewById(R.id.rv_numbers);</div><div class="line"></div><div class="line">        LinearLayoutManager layoutManager = new LinearLayoutManager(this);</div><div class="line">        // 设置为纵向线性列表</div><div class="line">        mNumbersList.setLayoutManager(layoutManager);</div><div class="line">        mNumbersList.setHasFixedSize(true);</div><div class="line"></div><div class="line">        mAdapter = new RecyclerAdapter(NUM_LIST_ITEMS);</div><div class="line">        // 设置适配器</div><div class="line">        mNumbersList.setAdapter(mAdapter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    static class ColorGenerater &#123;</div><div class="line">        /**</div><div class="line">         * 随机生成随机RGB颜色字符串值</div><div class="line">         */</div><div class="line">        public static String getRandomColorString() &#123;</div><div class="line">            Random random = new Random();</div><div class="line">            String r = Integer.toHexString(random.nextInt(256));</div><div class="line">            String g = Integer.toHexString(random.nextInt(256));</div><div class="line">            String b = Integer.toHexString(random.nextInt(256));</div><div class="line">            if (r.length() == 1) &#123;</div><div class="line">                r = &quot;0&quot; + r;</div><div class="line">            &#125;</div><div class="line">            if (g.length() == 1) &#123;</div><div class="line">                g = &quot;0&quot; + g;</div><div class="line">            &#125;</div><div class="line">            if (b.length() == 1) &#123;</div><div class="line">                b = &quot;0&quot; + b;</div><div class="line">            &#125;</div><div class="line">            return &quot;#&quot; + r + g + b;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建列表项布局</p>
+</li>
+</ol>
+<p>这里很简单，直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:padding=&quot;16dp&quot;</div><div class="line">    android:id=&quot;@+id/fl_item_container&quot;&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:textSize=&quot;14sp&quot;</div><div class="line">        android:fontFamily=&quot;monospace&quot;</div><div class="line">        android:layout_gravity=&quot;center_vertical&quot;</div><div class="line">        android:gravity=&quot;start&quot;</div><div class="line">        android:id=&quot;@+id/tv_item_number&quot;/&gt;</div><div class="line"></div><div class="line">&lt;/FrameLayout&gt;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>RecyclerView 适配器实现</li>
+</ol>
+<p>和 ListView 相似，RecyclerView Adapter 需要继承自 RecyclerView.Adapter ，实现其中必要的三个方法：<code>onCreateViewHolder</code>,<code>onBindViewHolder</code>,<code>getItemCount</code> ，除此之外我们还需要写内部类实现我们自己的 ViewHolder（继承 RecyclerView.ViewHolder ） 实现子 View 的缓存和重用。上代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">public class RecyclerAdapter extends RecyclerView.Adapter&lt;RecyclerAdapter.NumberViewHolder&gt; &#123;</div><div class="line"></div><div class="line">    private static final String TAG = RecyclerAdapter.class.getSimpleName();</div><div class="line"></div><div class="line">    private int mNumberItems;</div><div class="line"></div><div class="line">    public RecyclerAdapter(int numberOfItems) &#123;</div><div class="line">        mNumberItems = numberOfItems;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) &#123;</div><div class="line">        Context context = viewGroup.getContext();</div><div class="line">        int layoutIdForListItem = R.layout.number_list_item;</div><div class="line">        LayoutInflater inflater = LayoutInflater.from(context);</div><div class="line">        boolean shouldAttachToParentImmediately = false;</div><div class="line"></div><div class="line">        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);</div><div class="line">        NumberViewHolder viewHolder = new NumberViewHolder(view);</div><div class="line"></div><div class="line">        return viewHolder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onBindViewHolder(NumberViewHolder holder, int position) &#123;</div><div class="line">        Log.d(TAG, &quot;#&quot; + position);</div><div class="line">        holder.bind(position);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int getItemCount() &#123;</div><div class="line">        return mNumberItems;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class NumberViewHolder extends RecyclerView.ViewHolder &#123;</div><div class="line">        public NumberViewHolder(View itemView) &#123;</div><div class="line">            super(itemView);</div><div class="line">            listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);</div><div class="line">            mItemContainer = (FrameLayout) itemView.findViewById(R.id.fl_item_container);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        TextView listItemNumberView;</div><div class="line">        FrameLayout mItemContainer;</div><div class="line"></div><div class="line">        void bind(int listIndex) &#123;</div><div class="line">            String randomColorString = MyMainActivity.ColorGenerater.getRandomColorString();</div><div class="line">            listItemNumberView.setText(randomColorString + &quot; &quot; + String.valueOf(listIndex));</div><div class="line">            mItemContainer.setBackgroundColor(Color.parseColor(randomColorString));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在重写方法 <code>onCreateViewHolder(ViewGroup viewGroup, int viewType)</code>中，viewType可以判断视图类型，其值来源于我们重写的 <code>int getItemViewType(int position)</code> 方法，通过这种方式，实现多个 ViewHolder 类，我们可以实现 list 列表项多样的布局方式，比如改变第一项的大小样式等。有兴趣的读者可以尝试，这里暂时不做示例。</p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>以上，可见 RecyclerView 的实现非常简单，和 ListView 的实现方法大同小异。主要是以下几个步骤</p>
 <ol>
 <li>添加依赖</li>
