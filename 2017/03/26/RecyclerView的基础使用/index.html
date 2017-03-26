@@ -10,8 +10,6 @@
     
     <title>
         
-            categories | 
-        
         EvolveXie
     </title>
 
@@ -48,7 +46,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="categories | EvolveXie">
+    <meta property="og:title" content="EvolveXie">
     <meta property="og:description" content="Android开发成长之路">
     
 
@@ -210,6 +208,41 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#相比-ListView-优点"><span class="post-toc-number">1.</span> <span class="post-toc-text">相比 ListView 优点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#RecyclerView-基础使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">RecyclerView 基础使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现效果"><span class="post-toc-number">4.</span> <span class="post-toc-text">实现效果</span></a></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
 
 <!-- Layouts -->
 
@@ -235,7 +268,7 @@
         
     
             <p class="article-headline-p">
-                categories
+                
             </p>
         </div>
 
@@ -254,7 +287,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>evolve xie</strong>
-        <span>3月 25, 2017</span>
+        <span>3月 26, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -294,7 +327,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=categories&url=http://yoursite.com//categories/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=&url=http://yoursite.com//2017/03/26/RecyclerView的基础使用/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -303,7 +336,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=categories&url=http://yoursite.com//categories/index.html&via=evolve xie" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=&url=http://yoursite.com//2017/03/26/RecyclerView的基础使用/index.html&via=evolve xie" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -312,7 +345,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com//categories/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com//2017/03/26/RecyclerView的基础使用/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -321,7 +354,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com//categories/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com//2017/03/26/RecyclerView的基础使用/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -345,7 +378,147 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <blockquote>
+<p>A flexible view for providing a limited window into a large data set.</p>
+</blockquote>
+<p><img src="http://onekeuz2a.bkt.clouddn.com/Blog-RecyclerView.png" alt="image"></p>
+<p><a href="https://developer.android.google.cn/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="external">RecyclerView</a> 在 support.v7 中提供支持，可以说是 <a href="https://developer.android.google.cn/reference/android/widget/ListView.html" target="_blank" rel="external">ListView</a> 的升级加强版，建议原有的 ListView 设计的列表都可以转为使用 RecyclerView 实现。</p>
+<h4 id="相比-ListView-优点"><a href="#相比-ListView-优点" class="headerlink" title="相比 ListView 优点"></a>相比 ListView 优点</h4><ul>
+<li>封装了 ViewHolder，方便开发者快速构建性能良好的列表显示。</li>
+<li>把列表的整体布局样式完全交给 LayoutManager 管理，通常只需简单修改 LayoutManager 可以轻松实现纵向列表，横向列表，表格列表以及瀑布流列表。</li>
+<li>如果要修改布局样式，只需要重写 layoutManager</li>
+</ul>
+<h4 id="RecyclerView-基础使用"><a href="#RecyclerView-基础使用" class="headerlink" title="RecyclerView 基础使用"></a>RecyclerView 基础使用</h4><p>使用上和 ListView 基本类似，这里我以纵向列表为例。</p>
+<ol>
+<li>首先在主布局加入 RecycleView <blockquote>
+<p>注意，需要在 build.gradle 中加入依赖(版本自定) <figure class="highlight plain"><figcaption><span>'com.android.support:recyclerview-v7:25.1.0' ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+</blockquote>
+</li>
+</ol>
+<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
+<framelayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+<pre><code>&lt;android.support.v7.widget.RecyclerView
+    android:id=&quot;@+id/rv_numbers&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;/&gt;
+</code></pre><p></p></framelayout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2. Activity 代码实例化 RecycleView ，并且添加适配器，事件监听，设置布局</div></pre></td></tr></table></figure><p></p>
+<p>public class MyMainActivity extends AppCompatActivity {</p>
+<pre><code>private static final int NUM_LIST_ITEMS = 100;
+private RecyclerAdapter mAdapter;
+private RecyclerView mNumbersList;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mNumbersList = (RecyclerView) findViewById(R.id.rv_numbers);
+
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    // 设置为纵向线性列表
+    mNumbersList.setLayoutManager(layoutManager);
+    mNumbersList.setHasFixedSize(true);
+
+    mAdapter = new RecyclerAdapter(NUM_LIST_ITEMS);
+    // 设置适配器
+    mNumbersList.setAdapter(mAdapter);
+}
+
+static class ColorGenerater {
+    /**
+     * 随机生成随机RGB颜色字符串值
+     */
+    public static String getRandomColorString() {
+        Random random = new Random();
+        String r = Integer.toHexString(random.nextInt(256));
+        String g = Integer.toHexString(random.nextInt(256));
+        String b = Integer.toHexString(random.nextInt(256));
+        if (r.length() == 1) {
+            r = &quot;0&quot; + r;
+        }
+        if (g.length() == 1) {
+            g = &quot;0&quot; + g;
+        }
+        if (b.length() == 1) {
+            b = &quot;0&quot; + b;
+        }
+        return &quot;#&quot; + r + g + b;
+    }
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">3. 创建列表项布局</div><div class="line"></div><div class="line">这里很简单，直接上代码</div></pre></td></tr></table></figure></p>
+<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
+<framelayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:id="@+id/fl_item_container">
+
+<pre><code>&lt;TextView
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:textSize=&quot;14sp&quot;
+    android:fontFamily=&quot;monospace&quot;
+    android:layout_gravity=&quot;center_vertical&quot;
+    android:gravity=&quot;start&quot;
+    android:id=&quot;@+id/tv_item_number&quot;/&gt;
+</code></pre><p></p></framelayout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">4. RecyclerView 适配器实现</div><div class="line"></div><div class="line">和 ListView 相似，RecyclerView Adapter 需要继承自 RecyclerView.Adapter ，实现其中必要的三个方法：`onCreateViewHolder`,`onBindViewHolder`,`getItemCount` ，除此之外我们还需要写内部类实现我们自己的 ViewHolder（继承 RecyclerView.ViewHolder ） 实现子 View 的缓存和重用。上代码：</div></pre></td></tr></table></figure><p></p>
+<p>public class RecyclerAdapter extends RecyclerView.Adapter<recycleradapter.numberviewholder> {</recycleradapter.numberviewholder></p>
+<pre><code>private static final String TAG = RecyclerAdapter.class.getSimpleName();
+
+private int mNumberItems;
+
+public RecyclerAdapter(int numberOfItems) {
+    mNumberItems = numberOfItems;
+}
+
+@Override
+public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    Context context = viewGroup.getContext();
+    int layoutIdForListItem = R.layout.number_list_item;
+    LayoutInflater inflater = LayoutInflater.from(context);
+    boolean shouldAttachToParentImmediately = false;
+
+    View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
+    NumberViewHolder viewHolder = new NumberViewHolder(view);
+
+    return viewHolder;
+}
+
+@Override
+public void onBindViewHolder(NumberViewHolder holder, int position) {
+    Log.d(TAG, &quot;#&quot; + position);
+    holder.bind(position);
+}
+
+@Override
+public int getItemCount() {
+    return mNumberItems;
+}
+
+class NumberViewHolder extends RecyclerView.ViewHolder {
+    public NumberViewHolder(View itemView) {
+        super(itemView);
+        listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);
+        mItemContainer = (FrameLayout) itemView.findViewById(R.id.fl_item_container);
+    }
+
+    TextView listItemNumberView;
+    FrameLayout mItemContainer;
+
+    void bind(int listIndex) {
+        String randomColorString = MyMainActivity.ColorGenerater.getRandomColorString();
+        listItemNumberView.setText(randomColorString + &quot; &quot; + String.valueOf(listIndex));
+        mItemContainer.setBackgroundColor(Color.parseColor(randomColorString));
+    }
+}
+</code></pre><p>}<br><code>``
+在重写方法</code>onCreateViewHolder(ViewGroup viewGroup, int viewType) <code>中，viewType可以判断视图类型，其值来源于我们重写的</code>int getItemViewType(int position)` 方法，通过这种方式，实现多个 ViewHolder 类，我们可以实现 list 列表项多样的布局方式，比如改变第一项的大小样式等。有兴趣的读者可以尝试，这里暂时不做示例。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>以上，可见 RecyclerView 的实现非常简单，和 ListView 的实现方法大同小异。主要是以下几个步骤</p>
+<ol>
+<li>添加依赖</li>
+<li>往布局添加 RecyclerView </li>
+<li>实现 RecyclerViewAdapter </li>
+<li>Activity 中实例化并且设置布局</li>
+</ol>
+<h4 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h4><p><img src="http://onekeuz2a.bkt.clouddn.com/Blog-RecyclerView.png" alt="RecyclerViewImage"></p>
+
     
 
     
@@ -373,6 +546,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/03/25/hello world blog/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -539,6 +720,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
